@@ -26,6 +26,8 @@ public class Usuario {
 	@Column(name = "mail", length = 255, nullable=false)
 	private String mail;
 	
+	@Column(name = "password", length = 255, nullable = false)
+	private String password;
 	
 	
 	public Usuario() {
@@ -34,6 +36,7 @@ public class Usuario {
 	public Usuario(UsuarioDTO userDTO) {
 		this.mail = userDTO.getMail();
 		this.username = userDTO.getUsername();
+		this.password = userDTO.getPassword();
 	}
 	public Long getId() {
 		return id;
@@ -52,6 +55,12 @@ public class Usuario {
 	}
 	public void setMail(String mail) {
 		this.mail = mail;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	
 	

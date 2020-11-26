@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService{
 	public boolean authenticate(String username, String password) {
 		Usuario userDb = this.usuarioDAO.getUserByUserName(username)
 										.orElseThrow(EntityNotFoundException::new);
-		return (userDb.getMail().equals(password))? true
+		return (userDb.getPassword().equals(password))? true
 												  : false;
 	}
 
