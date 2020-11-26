@@ -1,0 +1,177 @@
+package ttps.spring.model;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "truck")
+public class Truck implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	private long id;
+
+	@Column(name = "name", length = 255)
+	private String name;
+
+	@OneToOne(mappedBy = "truck", fetch = FetchType.EAGER)
+	@JoinColumn(name = "owner_id", referencedColumnName = "id")
+	private FoodTrucker owner;
+
+	@Column(name = "description", length = 255)
+	private String description;
+
+	@Column(name = "uri", length = 255)
+	private String uri;
+
+	@Column(name = "whatsapp", length = 255)
+	private String whatsapp;
+
+	@Column(name = "instagram", length = 255)
+	private String instagram;
+
+	@Column(name = "twitter", length = 255)
+	private String twitter;
+	
+	@ElementCollection
+	private List<Integer> valoraciones;
+	
+	@ManyToMany(mappedBy = "trucks")
+	private List<Event> reservations;
+	
+	@ManyToMany
+	@JoinTable(
+			name = "truck_servicio", 
+			joinColumns = @JoinColumn(name = "truck_id", referencedColumnName = "id"),
+			inverseJoinColumns = @JoinColumn(name = "servicio_id", referencedColumnName = "id")
+			)
+	private List<Service> servicios;
+	
+	@ElementCollection
+	private List<String> imagenes;
+	
+	@ElementCollection
+	private List<String> tags;
+
+	public Truck() {
+		super();
+		this.servicios = new ArrayList<>();
+	}
+
+	public List<String> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<String> tags) {
+		this.tags = tags;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getUri() {
+		return uri;
+	}
+
+	public void setUri(String uri) {
+		this.uri = uri;
+	}
+
+	public String getWhatsapp() {
+		return whatsapp;
+	}
+
+	public void setWhatsapp(String whatsapp) {
+		this.whatsapp = whatsapp;
+	}
+
+	public String getInstagram() {
+		return instagram;
+	}
+
+	public void setInstagram(String instagram) {
+		this.instagram = instagram;
+	}
+
+	public String getTwitter() {
+		return twitter;
+	}
+
+	public void setTwitter(String twitter) {
+		this.twitter = twitter;
+	}
+
+	public List<Integer> getValoraciones() {
+		return valoraciones;
+	}
+
+	public void setValoraciones(List<Integer> valoraciones) {
+		this.valoraciones = valoraciones;
+	}
+
+	public List<Event> getReservations() {
+		return reservations;
+	}
+
+	public void setReservations(List<Event> reservations) {
+		this.reservations = reservations;
+	}
+
+	public List<Service> getServicios() {
+		return servicios;
+	}
+
+	public void setServicios(List<Service> servicios) {
+		this.servicios = servicios;
+	}
+
+	public List<String> getImagenes() {
+		return imagenes;
+	}
+
+	public void setImagenes(List<String> imagenes) {
+		this.imagenes = imagenes;
+	}
+	
+	public void addService(Service serv) {
+		this.servicios.add(serv);
+	}
+
+}
