@@ -1,5 +1,6 @@
 package ttps.spring.controller;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
@@ -89,6 +90,7 @@ public class TestController {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
 		
+		Objects.requireNonNull(userEdit,"De suministrar un usuario valido");
 		userEdit.setId(userId);
 		try {
 			this.userService.updateUser(userEdit);			

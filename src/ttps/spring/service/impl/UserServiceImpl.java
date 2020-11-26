@@ -57,9 +57,11 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public void updateUser(Usuario user) throws EntityNotFoundException {
+		
 		Usuario userDb = this.getUserById(user.getId()).orElseThrow(EntityNotFoundException::new);
 		userDb.setMail(user.getMail());
 		userDb.setUsername(user.getUsername());
+		userDb.setPassword(user.getPassword());
 		
 		this.usuarioDAO.update(userDb);
 		
