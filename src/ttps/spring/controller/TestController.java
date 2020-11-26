@@ -53,7 +53,7 @@ public class TestController {
 		try {
 			result = this.userService.authenticate(unUser, unaClave);
 		} catch (EntityNotFoundException e) {
-			throw new ServiceException("Ocurrio un problema al intentar autenticar al usuario");
+			throw new ServiceException("Ocurrio un problema al autenticar al usuario");
 		}
 		if(result == true) {
 			Usuario user = this.userService.getUserByUsername(unUser).orElseThrow();
@@ -62,7 +62,7 @@ public class TestController {
 			responseHeaders.set("token", token);
 			return ResponseEntity.noContent().headers(responseHeaders).build();
 		}
-		return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+		return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Ocurrio un problema al autenticar al usuario");
 	}
 	
 	@GetMapping("/usuario/{userId}")
