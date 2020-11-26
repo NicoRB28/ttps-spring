@@ -68,7 +68,7 @@ public class TestController {
 	public ResponseEntity<Usuario> getUser(@PathVariable  Long userId,
 										   @RequestHeader("token")String token){
 		
-		if(!this.authenticateService.verification(token)) {
+		if(!this.authenticateService.verification(token,userId)) {
 			return new ResponseEntity<>(null,HttpStatus.UNAUTHORIZED);
 		}
 		
@@ -85,7 +85,7 @@ public class TestController {
 	public ResponseEntity<?> getUser(@PathVariable Long userId,
 									 @RequestBody Usuario userEdit,
 									 @RequestHeader("token")String token){
-		if(!this.authenticateService.verification(token)) {
+		if(!this.authenticateService.verification(token, userId)) {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
 		

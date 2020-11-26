@@ -10,9 +10,10 @@ import ttps.spring.service.AuthenticationService;
 public class AuthenticationServiceImpl implements AuthenticationService {
 
 	@Override
-	public boolean verification(String token) {
+	public boolean verification(String token, Long userId) {
 		Objects.requireNonNull(token,"No se ha provisto un Token");
-		if ((token.length() > 6) && (token.endsWith("123456"))){
+		if ((token.length() > 6) && (token.endsWith("123456"))
+				&&(token.equals(userId.toString().concat("123456")))){
 			return true;
 		}
 		return false;
