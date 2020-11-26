@@ -82,7 +82,7 @@ public class TestController {
 	}
 	
 	@PutMapping("/usuario/{userId}")
-	public ResponseEntity<?> getUser(@PathVariable Long userId,
+	public ResponseEntity<?> updateUser(@PathVariable Long userId,
 									 @RequestBody Usuario userEdit,
 									 @RequestHeader("token")String token){
 		if(!this.authenticateService.verification(token, userId)) {
