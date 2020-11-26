@@ -6,10 +6,10 @@ Ejercicio Entregable 5 27/11/2020
 
 ## Integraciónde Spring Core y desarrollo de API REST full 
 
-usando Spring MVC Deacuerdo a la especificación publicada del proyecto 
-“SistemadereservasdeFoodTrucks”, alprototipo, al modelo de clases realizado
-y a lacapa de persistencia, ahora debe implementar una 
-​APIREST para el sistemausando ​SpringMVC.
+usando Spring MVC de acuerdo a la especificación publicada del proyecto 
+“Sistema de reservas de FoodTrucks”, al prototipo, al modelo de clases realizado
+y a la capa de persistencia, ahora debe implementar una 
+​APIREST para el sistema usando ​Spring-MVC.
 ​Además debe modificar la capa de persistencia ​utilizando inyección de dependencia 
 provista por Spring Core​.
 ## Específicamente para esta entrega debe implementar:
@@ -24,5 +24,5 @@ provista por Spring Core​.
   - Listado de todos los Food Trucks de un Food Trucker particular.
   - Actualización de un Food Truck
   - Borrado de Food Truck 
-Utilice unc liente REST para hacer las pruebas de los serviciosimplementados.
+Utilice un cliente REST para hacer las pruebas de los servicios implementados.
 Estos request serán de utilidad en el momento del visado.
