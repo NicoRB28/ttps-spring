@@ -17,7 +17,7 @@ public class TruckViewDTO {
 
 	private String twitter;
 	
-	//private Double average;
+	private Double average;
 	
 	public TruckViewDTO(Truck truck) {
 		this.name = truck.getName();
@@ -26,7 +26,7 @@ public class TruckViewDTO {
 		this.whatsapp = truck.getWhatsapp();
 		this.instagram = truck.getInstagram();
 		this.twitter = truck.getTwitter();
-		//this.average = truck.getAVGvaloration();
+		this.average = truck.getAVGvaloration();
 	}
 
 	public String getName() {
@@ -76,7 +76,7 @@ public class TruckViewDTO {
 	public void setTwitter(String twitter) {
 		this.twitter = twitter;
 	}
-/*
+
 	public Double getAverage() {
 		return average;
 	}
@@ -84,7 +84,7 @@ public class TruckViewDTO {
 	public void setAverage(Double average) {
 		this.average = average;
 	}
-	*/
+
 	
 	
 }

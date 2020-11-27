@@ -233,13 +233,17 @@ public class Truck implements Serializable {
 	public void addValoration(Integer valoration) {
 		this.valoraciones.add(valoration);
 	}
-	/*
+	
 	public Double getAVGvaloration() {
-		return this.valoraciones.stream()
-								.mapToInt(Integer::intValue)
-								.asDoubleStream()
-								.average()
-								.getAsDouble();
+		
+		//return Double.valueOf(0);
+		
+		return this.valoraciones.isEmpty()?Double.valueOf(0): this.valoraciones.stream()
+															.mapToInt(Integer::intValue)
+															.asDoubleStream()
+															.average()
+															.getAsDouble();
+		
 	}
-	*/
+	
 }
