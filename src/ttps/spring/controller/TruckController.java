@@ -82,7 +82,7 @@ public class TruckController {
 		return new ResponseEntity<>(edited, HttpStatus.OK);
 	}
 	
-	@PutMapping("/{truckId}/{serviceId}")
+	@PutMapping("/{truckId}/servicio/{serviceId}")
 	public ResponseEntity<?> addServiceToTruck(@PathVariable Long truckId, @PathVariable Long serviceId){
 		try {
 			this.truckService.addService(truckId,serviceId);			

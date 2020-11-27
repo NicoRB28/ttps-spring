@@ -233,6 +233,7 @@ public class Truck implements Serializable {
 	public void addValoration(Integer valoration) {
 		this.valoraciones.add(valoration);
 	}
+	/*
 	public Double getAVGvaloration() {
 		return this.valoraciones.stream()
 								.mapToInt(Integer::intValue)
@@ -240,4 +241,5 @@ public class Truck implements Serializable {
 								.average()
 								.getAsDouble();
 	}
+	*/
 }
