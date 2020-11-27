@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ttps.spring.dao.FoodTruckerDAO;
+import ttps.spring.dao.ServiceDAO;
 import ttps.spring.dao.TruckDAO;
 import ttps.spring.dto.CreateTruckDTO;
 import ttps.spring.model.FoodTrucker;
@@ -23,6 +24,9 @@ public class TruckServiceImpl implements TruckService {
 	
 	@Autowired
 	private FoodTruckerDAO foodtruckerDAO; 
+	
+	@Autowired
+	private ServiceDAO serviceDAO;
 	
 	@Override
 	public Truck createTruck(CreateTruckDTO createTruckDTO)throws ConstraintViolationException {
@@ -60,6 +64,34 @@ public class TruckServiceImpl implements TruckService {
 		this.truckDAO.update(truckDb);
 		
 		return truckDb;
+	}
+
+	@Override
+	public void addService(Long truckId, Long serviceId) {
+		Objects.requireNonNull(truckId);
+		Objects.requireNonNull(serviceId);
+		
+		Truck truckDb = this.truckDAO.findById(truckId);
+		ttps.spring.model.Service service = this.serviceDAO.findById(serviceId);
+		
+		truckDb.addService(service);
+		this.truckDAO.update(truckDb);
+	}
+
+	@Override
+	public void addValoration(Long truckId, Integer valoration) {
+		Truck truckDb = this.truckDAO.findById(truckId);
+		
+		truckDb.addValoration(valoration);
+		
+		this.truckDAO.update(truckDb);
+		
+	}
+
+	@Override
+	public Truck getTruckById(Long truckId) {
+		Objects.requireNonNull(truckId);
+		return this.truckDAO.findById(truckId);
 	}
 
 }
