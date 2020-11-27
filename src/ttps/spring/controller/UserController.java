@@ -26,7 +26,7 @@ import ttps.spring.service.UserService;
 
 @RestController
 @RequestMapping(name = "/ttps-spring")
-public class TestController {
+public class UserController {
 	
 	@Autowired
 	private UserService userService;
@@ -49,13 +49,7 @@ public class TestController {
 	public ResponseEntity<?> authentication(@RequestHeader("usuario")String unUser,
 			@RequestHeader("clave")String unaClave){
 		
-		boolean result;
-		try {
-			result = this.userService.authenticate(unUser, unaClave);
-		} catch (EntityNotFoundException e) {
-			throw new ServiceException("Ocurrio un problema al autenticar al usuario");
-		}
-		if(result == true) {
+		if(this.userService.authenticate(unUser, unaClave)) {
 			Usuario user = this.userService.getUserByUsername(unUser).orElseThrow();
 			String token = user.getId().toString().concat("123456");
 			HttpHeaders responseHeaders = new HttpHeaders();
@@ -86,6 +80,7 @@ public class TestController {
 	public ResponseEntity<?> updateUser(@PathVariable Long userId,
 									 @RequestBody Usuario userEdit,
 									 @RequestHeader("token")String token){
+		
 		if(!this.authenticateService.verification(token, userId)) {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
@@ -94,7 +89,7 @@ public class TestController {
 		userEdit.setId(userId);
 		try {
 			this.userService.updateUser(userEdit);			
-		} catch (EntityNotFoundException e) {
+		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<>(HttpStatus.OK);

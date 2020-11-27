@@ -1,8 +1,10 @@
 package ttps.spring.service.impl;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
+import javax.validation.ConstraintViolationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -37,10 +39,13 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public boolean authenticate(String username, String password) {
-		Usuario userDb = this.usuarioDAO.getUserByUserName(username)
-										.orElseThrow(EntityNotFoundException::new);
-		return (userDb.getPassword().equals(password))? true
-												  : false;
+		Optional<Usuario> userDb = this.usuarioDAO.getUserByUserName(username);
+		
+		if(userDb.isPresent()) {
+			return (userDb.get().getPassword().equals(password))? true
+					: false;			
+		}
+		return false;
 	}
 
 	@Override
@@ -56,9 +61,10 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public void updateUser(Usuario user) throws EntityNotFoundException {
+	public void updateUser(Usuario user) throws EntityNotFoundException,ConstraintViolationException {
 		
 		Usuario userDb = this.getUserById(user.getId()).orElseThrow(EntityNotFoundException::new);
+
 		userDb.setMail(user.getMail());
 		userDb.setUsername(user.getUsername());
 		userDb.setPassword(user.getPassword());
