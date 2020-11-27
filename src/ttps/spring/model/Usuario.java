@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.validation.constraints.NotEmpty;
 
 import ttps.spring.dto.UsuarioDTO;
 
@@ -21,12 +22,15 @@ public class Usuario {
 	private Long id;
 	
 	@Column(name = "username", length = 255, nullable=false)
+	@NotEmpty
 	private String username;
 	
 	@Column(name = "mail", length = 255, nullable=false)
+	@NotEmpty
 	private String mail;
 	
 	@Column(name = "password", length = 255, nullable = false)
+	@NotEmpty
 	private String password;
 	
 	

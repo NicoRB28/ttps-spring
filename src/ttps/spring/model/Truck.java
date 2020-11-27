@@ -2,7 +2,10 @@ package ttps.spring.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -16,9 +19,19 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import ttps.spring.dto.CreateTruckDTO;
+import ttps.spring.dto.EditTruckDTO;
 
 @Entity
 @Table(name = "truck")
+@JsonIgnoreProperties(value= {"suppliers"})
 public class Truck implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -28,6 +41,7 @@ public class Truck implements Serializable {
 	private long id;
 
 	@Column(name = "name", length = 255)
+	@NotEmpty
 	private String name;
 
 	@OneToOne(mappedBy = "truck", fetch = FetchType.EAGER)
@@ -35,12 +49,13 @@ public class Truck implements Serializable {
 	private FoodTrucker owner;
 
 	@Column(name = "description", length = 255)
+	@NotEmpty
 	private String description;
 
 	@Column(name = "uri", length = 255)
 	private String uri;
 
-	@Column(name = "whatsapp", length = 255)
+	@Column(name = "whatsapp", length = 255)	
 	private String whatsapp;
 
 	@Column(name = "instagram", length = 255)
@@ -49,13 +64,16 @@ public class Truck implements Serializable {
 	@Column(name = "twitter", length = 255)
 	private String twitter;
 	
-	@ElementCollection
-	private List<Integer> valoraciones;
+	@ElementCollection(fetch = FetchType.EAGER)
+	@Fetch(value = FetchMode.SUBSELECT)
+	private Set<Integer> valoraciones;
 	
-	@ManyToMany(mappedBy = "trucks")
+	@ManyToMany(mappedBy = "trucks", fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SUBSELECT)
 	private List<Event> reservations;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SUBSELECT)
 	@JoinTable(
 			name = "truck_servicio", 
 			joinColumns = @JoinColumn(name = "truck_id", referencedColumnName = "id"),
@@ -63,15 +81,48 @@ public class Truck implements Serializable {
 			)
 	private List<Service> servicios;
 	
-	@ElementCollection
+	@ElementCollection(fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SUBSELECT)
 	private List<String> imagenes;
 	
-	@ElementCollection
+	@ElementCollection(fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SUBSELECT)
 	private List<String> tags;
 
 	public Truck() {
 		super();
 		this.servicios = new ArrayList<>();
+		this.valoraciones = new HashSet();
+		this.reservations = Arrays.asList();
+		this.imagenes = Arrays.asList();
+		this.tags = Arrays.asList();
+	}
+	
+	public Truck(CreateTruckDTO dto, FoodTrucker owner) {
+		super();
+		this.servicios = new ArrayList<>();
+		this.valoraciones = new HashSet();
+		this.reservations = Arrays.asList();
+		this.imagenes = Arrays.asList();
+		this.tags = Arrays.asList();
+		
+		this.description = dto.getDescription();
+		this.instagram = dto.getInstagram();
+		this.name = dto.getName();
+		this.owner = owner;
+		this.twitter = dto.getTwitter();
+		this.uri = dto.getUri();
+		this.whatsapp = dto.getWhatsapp();
+		this.tags = dto.getTags();
+	}
+	
+	public Truck(EditTruckDTO dto) {		
+		this.description = dto.getDescription();
+		this.instagram = dto.getInstagram();
+		this.name = dto.getName();
+		this.twitter = dto.getTwitter();
+		this.uri = dto.getUri();
+		this.whatsapp = dto.getWhatsapp();
 	}
 
 	public List<String> getTags() {
@@ -138,11 +189,11 @@ public class Truck implements Serializable {
 		this.twitter = twitter;
 	}
 
-	public List<Integer> getValoraciones() {
+	public Set<Integer> getValoraciones() {
 		return valoraciones;
 	}
 
-	public void setValoraciones(List<Integer> valoraciones) {
+	public void setValoraciones(Set<Integer> valoraciones) {
 		this.valoraciones = valoraciones;
 	}
 
@@ -168,6 +219,10 @@ public class Truck implements Serializable {
 
 	public void setImagenes(List<String> imagenes) {
 		this.imagenes = imagenes;
+	}
+	
+	public void addImage(String image) {
+		this.imagenes.add(image);
 	}
 	
 	public void addService(Service serv) {
