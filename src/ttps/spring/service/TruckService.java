@@ -14,4 +14,10 @@ public interface TruckService {
 	public void deleteTruckById(Long truckId);
 	
 	public Truck editTruck(Truck editedTruck);
+	
+	public void addService(Long truckId, Long serviceId);
+
+	public void addValoration(Long truckId, Integer valoration);
+
+	public Truck getTruckById(Long truckId);
 }

@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.IntStream;
 
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -66,7 +67,7 @@ public class Truck implements Serializable {
 	
 	@ElementCollection(fetch = FetchType.EAGER)
 	@Fetch(value = FetchMode.SUBSELECT)
-	private Set<Integer> valoraciones;
+	private List<Integer> valoraciones;
 	
 	@ManyToMany(mappedBy = "trucks", fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
@@ -92,7 +93,7 @@ public class Truck implements Serializable {
 	public Truck() {
 		super();
 		this.servicios = new ArrayList<>();
-		this.valoraciones = new HashSet();
+		this.valoraciones = Arrays.asList();
 		this.reservations = Arrays.asList();
 		this.imagenes = Arrays.asList();
 		this.tags = Arrays.asList();
@@ -101,7 +102,7 @@ public class Truck implements Serializable {
 	public Truck(CreateTruckDTO dto, FoodTrucker owner) {
 		super();
 		this.servicios = new ArrayList<>();
-		this.valoraciones = new HashSet();
+		this.valoraciones = Arrays.asList();
 		this.reservations = Arrays.asList();
 		this.imagenes = Arrays.asList();
 		this.tags = Arrays.asList();
@@ -189,11 +190,11 @@ public class Truck implements Serializable {
 		this.twitter = twitter;
 	}
 
-	public Set<Integer> getValoraciones() {
+	public List<Integer> getValoraciones() {
 		return valoraciones;
 	}
 
-	public void setValoraciones(Set<Integer> valoraciones) {
+	public void setValoraciones(List<Integer> valoraciones) {
 		this.valoraciones = valoraciones;
 	}
 
@@ -228,5 +229,15 @@ public class Truck implements Serializable {
 	public void addService(Service serv) {
 		this.servicios.add(serv);
 	}
-
+	
+	public void addValoration(Integer valoration) {
+		this.valoraciones.add(valoration);
+	}
+	public Double getAVGvaloration() {
+		return this.valoraciones.stream()
+								.mapToInt(Integer::intValue)
+								.asDoubleStream()
+								.average()
+								.getAsDouble();
+	}
 }
