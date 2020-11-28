@@ -236,8 +236,6 @@ public class Truck implements Serializable {
 	
 	public Double getAVGvaloration() {
 		
-		//return Double.valueOf(0);
-		
 		return this.valoraciones.isEmpty()?Double.valueOf(0): this.valoraciones.stream()
 															.mapToInt(Integer::intValue)
 															.asDoubleStream()
