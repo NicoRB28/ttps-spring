@@ -40,8 +40,14 @@ public class UserController {
 	}
 	
 	@PostMapping("/usuario")
-	public ResponseEntity<Usuario> createUser(@RequestBody UsuarioDTO userDTO){
-		Usuario usuario = this.userService.createUser(userDTO);
+	public ResponseEntity<?> createUser(@RequestBody UsuarioDTO userDTO){
+		Usuario usuario = null;
+		try {
+			 usuario = this.userService.createUser(userDTO);
+			
+		} catch (Exception e) {
+			return new ResponseEntity<>("ha ocurrido un problema en la creacion!", HttpStatus.BAD_REQUEST);
+		}
 		return new ResponseEntity<Usuario>(usuario,HttpStatus.CREATED);
 	}
 	

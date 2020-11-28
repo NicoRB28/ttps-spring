@@ -21,7 +21,7 @@ public class Usuario {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 	
-	@Column(name = "username", length = 255, nullable=false)
+	@Column(name = "username",unique = true, length = 255, nullable=false)
 	@NotEmpty
 	private String username;
 	
