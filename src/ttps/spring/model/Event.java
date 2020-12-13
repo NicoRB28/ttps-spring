@@ -18,6 +18,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import ttps.spring.dto.EventDTO;
+
 @Entity
 @Table(name = "event")
 public class Event implements Serializable{
@@ -64,6 +66,20 @@ public class Event implements Serializable{
 	
 	public Event() {
 		super();
+	}
+	public Event(EventDTO dto) {
+		this.adress = dto.getAddress();
+		this.dayAndTime = dto.getDayAndTime();
+		this.description = dto.getDescription();
+		this.email = dto.getMail();
+		this.latitude = dto.getLatitude();
+		this.longitude = dto.getLongitude();
+		this.name = dto.getName();
+		this.payment = dto.getPayment();
+		this.phone = dto.getPhone();
+		this.province = dto.getProvince();
+		this.state = dto.getState();
+		this.zipCode = dto.getZipCode();
 	}
 
 	public long getId() {

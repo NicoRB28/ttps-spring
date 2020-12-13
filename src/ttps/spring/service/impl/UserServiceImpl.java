@@ -31,10 +31,12 @@ public class UserServiceImpl implements UserService{
 			FoodTrucker trucker = new FoodTrucker(userDTO);
 			this.usuarioDAO.save(trucker);
 			return trucker;
+		}else if(userDTO.getType().equals("EventPlanner")) {
+			EventPlanner evPlanner = new EventPlanner(userDTO);
+			this.usuarioDAO.save(evPlanner);			
+			return evPlanner;
 		}
-		EventPlanner evPlanner = new EventPlanner(userDTO);
-		this.usuarioDAO.save(evPlanner);
-		return evPlanner;
+		return null;
 	}
 
 	@Override
