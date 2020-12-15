@@ -10,4 +10,6 @@ public interface EventService {
 	public Event createEvent(EventDTO newEvent);
 	
 	public List<Event> getAllEvents();
+	
+	public void deleteEvent(Long id);
 }

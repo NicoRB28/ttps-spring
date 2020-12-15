@@ -8,19 +8,13 @@ public class EventDTO {
 	
 	private Long id;
 	private String name;
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
 	private String state;
+	private String province;
+	private String city;
 	private	String address;
 	private String zipCode;
 	private long latitude;
 	private long longitude;
-	private String province;
 	private Date dayAndTime;
 	private String mail;
 	private String description;
@@ -28,9 +22,23 @@ public class EventDTO {
 	private String phone;
 
 	
+	public String getCity() {
+		return city;
+	}
+	
+	public void setCity(String city) {
+		this.city = city;
+	}
 	// trucks: Truck[];
 
 	// eventPlanner: EventPlanner;
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
 	
 	public String getPhone() {
 		return phone;
@@ -57,6 +65,7 @@ public class EventDTO {
 		this.payment = event.getPayment();
 		this.name = event.getName();
 		this.phone = event.getPhone();
+		this.city = event.getCity();
 	}
 	
 	public Long getId() {

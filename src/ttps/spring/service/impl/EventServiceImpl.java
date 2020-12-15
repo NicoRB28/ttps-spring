@@ -26,5 +26,10 @@ public class EventServiceImpl implements EventService {
 	public List<Event> getAllEvents() {
 		return this.eventDAO.findAll();
 	}
+
+	@Override
+	public void deleteEvent(Long id) {
+		this.eventDAO.delete(id);
+	}
 	
 }

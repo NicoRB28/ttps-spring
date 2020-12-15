@@ -63,6 +63,8 @@ public class Event implements Serializable{
 	private String description;
 	@Column(name = "payment", length = 255)
 	private String payment;
+	@Column(name = "city", length = 255)
+	private String city;
 	
 	public Event() {
 		super();
@@ -80,8 +82,15 @@ public class Event implements Serializable{
 		this.province = dto.getProvince();
 		this.state = dto.getState();
 		this.zipCode = dto.getZipCode();
+		this.city = dto.getCity();
 	}
 
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
 	public long getId() {
 		return id;
 	}
