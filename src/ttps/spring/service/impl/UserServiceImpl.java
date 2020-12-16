@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
 import javax.validation.ConstraintViolationException;
 
+import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
@@ -36,7 +37,7 @@ public class UserServiceImpl implements UserService{
 			this.usuarioDAO.save(evPlanner);			
 			return evPlanner;
 		}
-		return null;
+		throw new ServiceException("no se ha podido crear el usuario");
 	}
 
 	@Override

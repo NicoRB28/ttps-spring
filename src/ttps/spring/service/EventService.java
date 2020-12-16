@@ -12,4 +12,8 @@ public interface EventService {
 	public List<Event> getAllEvents();
 	
 	public void deleteEvent(Long id);
+	
+	public Event getById(Long id);
+	
+	public Event updateEvent(EventDTO data,Event editedEvent);
 }

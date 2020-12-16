@@ -1,5 +1,6 @@
 package ttps.spring.controller;
 
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -10,6 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,6 +30,7 @@ import ttps.spring.service.AuthenticationService;
 import ttps.spring.service.UserService;
 
 @RestController
+@CrossOrigin(origins="*")
 @RequestMapping(name = "/ttps-spring")
 public class UserController {
 	
@@ -40,29 +46,30 @@ public class UserController {
 	}
 	
 	@PostMapping("/usuario")
-	public ResponseEntity<?> createUser(@RequestBody UsuarioDTO userDTO){
+	public ResponseEntity<UsuarioDTO> createUser(@RequestBody UsuarioDTO userDTO){
 		Usuario usuario = null;
 		try {
 			 usuario = this.userService.createUser(userDTO);
 			
 		} catch (Exception e) {
-			return new ResponseEntity<>("ha ocurrido un problema en la creacion!", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 		}
-		return new ResponseEntity<Usuario>(usuario,HttpStatus.CREATED);
+		return new ResponseEntity<>(new UsuarioDTO(usuario),HttpStatus.CREATED);
 	}
 	
 	@PostMapping("/autenticacion")
-	public ResponseEntity<?> authentication(@RequestHeader("usuario")String unUser,
+	public ResponseEntity<UsuarioDTO> authentication(@RequestHeader("usuario")String unUser,
 			@RequestHeader("clave")String unaClave){
 		
 		if(this.userService.authenticate(unUser, unaClave)) {
 			Usuario user = this.userService.getUserByUsername(unUser).orElseThrow();
 			String token = user.getId().toString().concat("123456");
-			HttpHeaders responseHeaders = new HttpHeaders();
-			responseHeaders.set("token", token);
-			return ResponseEntity.noContent().headers(responseHeaders).build();
+			MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
+			headers.add("token", token);
+			return new ResponseEntity<>(new UsuarioDTO(user),headers, HttpStatus.ACCEPTED);
+			
 		}
-		return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Ocurrio un problema al autenticar al usuario");
+		return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
 	}
 	
 	@GetMapping("/usuario/{userId}")
