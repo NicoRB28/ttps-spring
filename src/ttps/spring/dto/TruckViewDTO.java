@@ -4,6 +4,7 @@ import ttps.spring.model.Truck;
 
 public class TruckViewDTO {
 	
+	private Long id;
 
 	private String name;
 
@@ -20,6 +21,7 @@ public class TruckViewDTO {
 	private Double average;
 	
 	public TruckViewDTO(Truck truck) {
+		this.id = truck.getId();
 		this.name = truck.getName();
 		this.description = truck.getDescription();
 		this.uri = truck.getUri();
@@ -27,6 +29,13 @@ public class TruckViewDTO {
 		this.instagram = truck.getInstagram();
 		this.twitter = truck.getTwitter();
 		this.average = truck.getAVGvaloration();
+	}
+	public Long getId() {
+		return id;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getName() {

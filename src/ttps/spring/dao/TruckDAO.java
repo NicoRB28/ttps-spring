@@ -10,5 +10,6 @@ public interface TruckDAO extends GenericDAO<Truck>{
 	
 	List<Truck> findByServiceId(Long serviceId);
 	Truck findByTruckname(String truckname);
+	Truck findByUserId(Long userId);
 	
 }

@@ -31,10 +31,15 @@ public class TruckServiceImpl implements TruckService {
 	@Override
 	public Truck createTruck(CreateTruckDTO createTruckDTO)throws ConstraintViolationException {
 		Objects.requireNonNull(createTruckDTO,"La request no puede ser nula");
-		FoodTrucker owner = this.foodtruckerDAO.findById(createTruckDTO.getOwnerId());
-		Truck newTruck = new Truck(createTruckDTO, owner );
 		
+		FoodTrucker owner = this.foodtruckerDAO.findById(createTruckDTO.getOwnerId());
+		
+		Truck newTruck = new Truck(createTruckDTO, owner );
 		this.truckDAO.save(newTruck);
+		
+		owner.setTruck(newTruck);
+		this.foodtruckerDAO.update(owner);
+		
 		return newTruck;
 	}
 
@@ -92,6 +97,11 @@ public class TruckServiceImpl implements TruckService {
 	public Truck getTruckById(Long truckId) {
 		Objects.requireNonNull(truckId);
 		return this.truckDAO.findById(truckId);
+	}
+
+	@Override
+	public Truck getTruckByUserId(Long userId) {
+		return this.truckDAO.findByUserId(userId);
 	}
 
 }

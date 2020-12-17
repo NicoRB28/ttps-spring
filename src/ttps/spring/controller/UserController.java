@@ -66,7 +66,9 @@ public class UserController {
 			String token = user.getId().toString().concat("123456");
 			MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
 			headers.add("token", token);
-			return new ResponseEntity<>(new UsuarioDTO(user),headers, HttpStatus.ACCEPTED);
+			UsuarioDTO userResponse = new UsuarioDTO(user);
+			
+			return new ResponseEntity<>(userResponse,headers, HttpStatus.ACCEPTED);
 			
 		}
 		return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);

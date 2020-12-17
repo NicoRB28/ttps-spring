@@ -3,7 +3,8 @@ package ttps.spring.dto;
 import ttps.spring.model.Usuario;
 
 public class UsuarioDTO {
-
+	
+	private Long userId;																																																
 	private String username;
 	private String mail;
 	private String password;
@@ -17,9 +18,19 @@ public class UsuarioDTO {
 		this.mail = data.getMail();
 		this.username = data.getUsername();
 		this.password = data.getPassword();
-		this.type = null;
+		this.type = data.isFoodTrucker()? "FoodTrucker": "EventPlanner";
+		this.userId = data.getId();
 	}
 	
+	
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+
 	public String getUsername() {
 		return username;
 	}

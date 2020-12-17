@@ -11,6 +11,8 @@ public interface TruckService {
 	
 	public List<Truck> getTrucksByServiceId(Long serviceId);
 	
+	public Truck getTruckByUserId(Long userId);
+	
 	public void deleteTruckById(Long truckId);
 	
 	public Truck editTruck(Truck editedTruck);

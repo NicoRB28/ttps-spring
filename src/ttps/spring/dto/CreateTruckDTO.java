@@ -13,6 +13,7 @@ public class CreateTruckDTO {
 	private String twitter;
 	private List<String> tags;
 	
+	
 	public List<String> getTags() {
 		return tags;
 	}

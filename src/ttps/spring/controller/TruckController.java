@@ -6,6 +6,7 @@ import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +23,7 @@ import ttps.spring.model.Truck;
 import ttps.spring.service.TruckService;
 
 @RestController
+@CrossOrigin(origins="*")
 @RequestMapping("/truck")
 public class TruckController {
 
@@ -29,14 +31,14 @@ public class TruckController {
 	private TruckService truckService;
 	
 	@PostMapping("")
-	public ResponseEntity<?> createTruck(@RequestBody CreateTruckDTO dto) {
+	public ResponseEntity<CreateTruckDTO> createTruck(@RequestBody CreateTruckDTO dto) {
 		Truck truck = null;
 		try {
 			truck = this.truckService.createTruck(dto);
 		} catch (Exception e) {
-			return new ResponseEntity<>("Error al crear truck", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 		}
-		return new ResponseEntity<Truck>(truck,HttpStatus.CREATED);
+		return new ResponseEntity<CreateTruckDTO>(dto,HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/{truckId}")
@@ -69,17 +71,17 @@ public class TruckController {
 	}
 	
 	@PutMapping("/{truckId}")
-	public ResponseEntity<?> editTruck(@RequestBody EditTruckDTO dto,@PathVariable Long truckId){
+	public ResponseEntity<TruckViewDTO> editTruck(@RequestBody EditTruckDTO dto,@PathVariable Long truckId){
 		Truck data = new Truck(dto);
 		Truck edited = null;
 		try {
 			data.setId(truckId);
 			edited = this.truckService.editTruck(data);			
 		} catch (Exception e) {
-			return new ResponseEntity<>("No se ha podido modificar el Truck",HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
 		}
 		
-		return new ResponseEntity<>(edited, HttpStatus.OK);
+		return new ResponseEntity<>(new TruckViewDTO(edited), HttpStatus.OK);
 	}
 	
 	@PutMapping("/{truckId}/servicio/{serviceId}")
@@ -100,5 +102,10 @@ public class TruckController {
 			return new ResponseEntity<>("No se ha podido registrar la calificacion", HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>("calificacion registrada", HttpStatus.OK);
+	}
+	
+	@GetMapping("/user/{userId}")
+	public TruckViewDTO getUserTruck(@PathVariable Long userId) {
+		return new TruckViewDTO( this.truckService.getTruckByUserId(userId));
 	}
 }

@@ -36,6 +36,16 @@ public class TruckDAOImpl extends GenericDAOImpl<Truck> implements TruckDAO{
 								.setParameter("string", truckname).getSingleResult();
 		return truck;
 	}
+
+	@Override
+	public Truck findByUserId(Long userId) {
+		return	(Truck)	this.getEntityManager().createQuery("SELECT t FROM Truck as t join t.owner as o WHERE o.id =:userId")
+							.setParameter("userId", userId)
+							.getSingleResult();
+ 
+	}
+	
+	
 	
 
 }
