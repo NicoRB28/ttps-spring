@@ -1,5 +1,7 @@
 package ttps.spring.dto;
 
+import java.util.List;
+
 import ttps.spring.model.Truck;
 
 public class TruckViewDTO {
@@ -20,6 +22,8 @@ public class TruckViewDTO {
 	
 	private Double average;
 	
+	private List<String> tags;
+	
 	public TruckViewDTO(Truck truck) {
 		this.id = truck.getId();
 		this.name = truck.getName();
@@ -29,7 +33,24 @@ public class TruckViewDTO {
 		this.instagram = truck.getInstagram();
 		this.twitter = truck.getTwitter();
 		this.average = truck.getAVGvaloration();
+		this.tags = truck.getTags();
+		
 	}
+	
+	
+	
+	public List<String> getTags() {
+		return tags;
+	}
+
+
+
+	public void setTags(List<String> tags) {
+		this.tags = tags;
+	}
+
+
+
 	public Long getId() {
 		return id;
 	}

@@ -1,15 +1,8 @@
 package ttps.spring.dto;
 
-import javax.persistence.Column;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.validation.constraints.NotEmpty;
-
-import ttps.spring.model.FoodTrucker;
+import java.util.List;
 
 public class EditTruckDTO {
-	
 	
 	private String name;
 
@@ -22,6 +15,16 @@ public class EditTruckDTO {
 	private String instagram;
 
 	private String twitter;
+	
+	private List<String> tags;
+
+	public List<String> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<String> tags) {
+		this.tags = tags;
+	}
 
 	public String getName() {
 		return name;

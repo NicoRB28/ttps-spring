@@ -92,12 +92,12 @@ public class UserController {
 	}
 	
 	@PutMapping("/usuario/{userId}")
-	public ResponseEntity<?> updateUser(@PathVariable Long userId,
+	public ResponseEntity<Usuario> updateUser(@PathVariable Long userId,
 									 @RequestBody Usuario userEdit,
 									 @RequestHeader("token")String token){
 		
 		if(!this.authenticateService.verification(token, userId)) {
-			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<>(null,HttpStatus.UNAUTHORIZED);
 		}
 		
 		Objects.requireNonNull(userEdit,"De suministrar un usuario valido");
@@ -105,8 +105,8 @@ public class UserController {
 		try {
 			this.userService.updateUser(userEdit);			
 		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<>(HttpStatus.OK);
+		return new ResponseEntity<>(userEdit,HttpStatus.OK);
 	}
 }
