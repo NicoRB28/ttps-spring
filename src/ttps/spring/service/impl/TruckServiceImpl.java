@@ -52,6 +52,10 @@ public class TruckServiceImpl implements TruckService {
 	
 	public void deleteTruckById(Long truckId) {
 		Objects.requireNonNull(truckId);
+		Truck truckDB = this.getTruckById(truckId);
+		FoodTrucker owner = this.foodtruckerDAO.findById(truckDB.getOwner().getId());
+		owner.setTruck(null);
+		this.foodtruckerDAO.update(owner);
 		this.truckDAO.delete(truckId);
 	}
 

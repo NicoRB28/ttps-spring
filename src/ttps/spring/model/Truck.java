@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.IntStream;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -172,6 +173,14 @@ public class Truck implements Serializable {
 
 	public void setWhatsapp(String whatsapp) {
 		this.whatsapp = whatsapp;
+	}
+
+	public FoodTrucker getOwner() {
+		return owner;
+	}
+
+	public void setOwner(FoodTrucker owner) {
+		this.owner = owner;
 	}
 
 	public String getInstagram() {
