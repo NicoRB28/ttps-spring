@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ttps.spring.dao.FoodTruckerDAO;
+import ttps.spring.dto.UsuarioDTO;
 import ttps.spring.model.FoodTrucker;
 import ttps.spring.service.FoodTruckerService;
 
@@ -19,7 +20,7 @@ public class FoodTruckerServiceIml implements FoodTruckerService{
 	}
 
 	@Override
-	public FoodTrucker createFoodTrucker(FoodTrucker newFoodTrucker) {
-		return this.foodTruckerDao.save(newFoodTrucker);
+	public FoodTrucker createFoodTrucker(UsuarioDTO dto) {
+		return this.foodTruckerDao.save(new FoodTrucker(dto));
 	}
 }

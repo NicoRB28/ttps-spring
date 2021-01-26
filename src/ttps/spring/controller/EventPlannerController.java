@@ -10,25 +10,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ttps.spring.dto.UsuarioDTO;
-import ttps.spring.model.FoodTrucker;
-import ttps.spring.service.FoodTruckerService;
+import ttps.spring.model.EventPlanner;
+import ttps.spring.service.EventPlannerService;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/api/foodtrucker")
-public class FoodTruckerController {
+@RequestMapping("/api/eventPlanner")
+public class EventPlannerController {
 	
 	@Autowired
-	public FoodTruckerService foodtruckerService;
+	public EventPlannerService eventPlannerService;
 	
-	@PostMapping("/create/foodtrucker")
-	public FoodTrucker createFoodTrucker(@RequestBody UsuarioDTO dto) {
-		return this.foodtruckerService.createFoodTrucker(dto);
+	@PostMapping("/create")
+	public EventPlanner createEventPlanner(@RequestBody UsuarioDTO dto) {
+		return this.eventPlannerService.createEventPlanner(dto);
 	}
 	
 	@GetMapping("/{id}")
-	public FoodTrucker getFoodTruckerById(@PathVariable Long id) {
-		return this.foodtruckerService.getFoodTruckerById(id);
+	public EventPlanner getEventPlanner(@PathVariable Long id) {
+		return this.eventPlannerService.getEventPlannerById(id);
 	}
 	
 }

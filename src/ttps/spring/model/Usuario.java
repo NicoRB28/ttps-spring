@@ -45,6 +45,7 @@ public class Usuario {
 		this.username = userDTO.getUsername();
 		this.password = userDTO.getPassword();
 	}
+
 	public Long getId() {
 		return id;
 	}
