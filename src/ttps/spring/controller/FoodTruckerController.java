@@ -1,5 +1,7 @@
 package ttps.spring.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ttps.spring.dto.UsuarioDTO;
 import ttps.spring.model.FoodTrucker;
+import ttps.spring.model.Truck;
 import ttps.spring.service.FoodTruckerService;
 
 @RestController
@@ -29,6 +32,11 @@ public class FoodTruckerController {
 	@GetMapping("/{id}")
 	public FoodTrucker getFoodTruckerById(@PathVariable Long id) {
 		return this.foodtruckerService.getFoodTruckerById(id);
+	}
+	
+	@GetMapping("/{id}/trucks")
+	public List<Truck> getTrucks(@PathVariable Long id){
+		return this.foodtruckerService.getTrucks(id);
 	}
 	
 }

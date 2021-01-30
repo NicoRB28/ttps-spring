@@ -37,7 +37,7 @@ public class TruckServiceImpl implements TruckService {
 		Truck newTruck = new Truck(createTruckDTO, owner );
 		this.truckDAO.save(newTruck);
 		
-		owner.setTruck(newTruck);
+		owner.addTruck(newTruck);
 		this.foodtruckerDAO.update(owner);
 		
 		return newTruck;

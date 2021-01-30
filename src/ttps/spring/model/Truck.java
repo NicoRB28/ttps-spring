@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
@@ -43,7 +44,7 @@ public class Truck implements Serializable {
 	@NotEmpty
 	private String name;
 
-	@OneToOne(mappedBy = "truck", fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "owner_id", referencedColumnName = "id")
 	private FoodTrucker owner;
 
@@ -249,5 +250,12 @@ public class Truck implements Serializable {
 															.getAsDouble();
 		
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		Truck truck = (Truck) obj;
+		return this.getId() == truck.getId();
+	}
+	
 	
 }

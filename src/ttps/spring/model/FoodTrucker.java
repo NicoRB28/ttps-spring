@@ -1,10 +1,13 @@
 package ttps.spring.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+
 
 import ttps.spring.dto.UsuarioDTO;
 
@@ -13,8 +16,8 @@ public class FoodTrucker extends Usuario implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
-	@OneToOne(cascade=CascadeType.REMOVE)
-	private Truck truck;
+	@OneToMany(mappedBy = "owner", fetch = FetchType.EAGER, cascade=CascadeType.REMOVE)
+	private List<Truck> trucks;
 	
 	public FoodTrucker() {
 		super();
@@ -24,12 +27,20 @@ public class FoodTrucker extends Usuario implements Serializable{
 		super(userDTO);
 	}
 
-	public Truck getTruck() {
-		return truck;
+	public List<Truck> getTruck() {
+		return trucks;
 	}
 
-	public void setTruck(Truck truck) {
-		this.truck = truck;
+	public void setTruck(List<Truck> trucks) {
+		this.trucks = trucks;
+	}
+	
+	public void addTruck(Truck truck) {
+		this.trucks.add(truck);
+	}
+	
+	public void removeTruck(Truck truck) {
+		this.trucks.remove(truck);
 	}
 
 }
