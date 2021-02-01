@@ -24,7 +24,7 @@ public class FoodTruckerController {
 	@Autowired
 	public FoodTruckerService foodtruckerService;
 	
-	@PostMapping("/create/foodtrucker")
+	@PostMapping("/create")
 	public FoodTrucker createFoodTrucker(@RequestBody UsuarioDTO dto) {
 		return this.foodtruckerService.createFoodTrucker(dto);
 	}

@@ -26,19 +26,7 @@ public class UserServiceImpl implements UserService{
 	
 	@Override
 	public Usuario createUser(UsuarioDTO userDTO) {
-		
-		if(userDTO.getType().equals("FoodTrucker")) {
-			FoodTrucker trucker = new FoodTrucker(userDTO);
-			trucker.setIsFoodTrucker(true);
-			this.usuarioDAO.save(trucker);
-			return trucker;
-		}else if(userDTO.getType().equals("EventPlanner")) {
-			EventPlanner evPlanner = new EventPlanner(userDTO);
-			evPlanner.setIsFoodTrucker(false);
-			this.usuarioDAO.save(evPlanner);			
-			return evPlanner;
-		}
-		throw new ServiceException("no se ha podido crear el usuario");
+		return null;
 	}
 
 	@Override

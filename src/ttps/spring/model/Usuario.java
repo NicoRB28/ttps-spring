@@ -33,9 +33,6 @@ public class Usuario {
 	@NotEmpty
 	private String password;
 	
-	@Column(name="isFoodTrucker")
-	private boolean isFoodTrucker;
-	
 	
 	public Usuario() {
 		super();
@@ -52,12 +49,8 @@ public class Usuario {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public boolean isFoodTrucker() {
-		return isFoodTrucker;
-	}
-	public void setIsFoodTrucker(boolean isFoodTrucker) {
-		this.isFoodTrucker = isFoodTrucker;
-	}
+	
+	
 	public String getUsername() {
 		return username;
 	}

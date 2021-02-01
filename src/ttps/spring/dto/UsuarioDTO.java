@@ -8,7 +8,6 @@ public class UsuarioDTO {
 	private String username;
 	private String mail;
 	private String password;
-	private String type;
 	
 	public UsuarioDTO() {
 		
@@ -18,7 +17,6 @@ public class UsuarioDTO {
 		this.mail = data.getMail();
 		this.username = data.getUsername();
 		this.password = data.getPassword();
-		this.type = data.isFoodTrucker()? "FoodTrucker": "EventPlanner";
 		this.userId = data.getId();
 	}
 	
@@ -43,12 +41,7 @@ public class UsuarioDTO {
 	public void setMail(String mail) {
 		this.mail = mail;
 	}
-	public String getType() {
-		return type;
-	}
-	public void setType(String type) {
-		this.type = type;
-	}
+	
 	public String getPassword() {
 		return password;
 	}
