@@ -1,7 +1,9 @@
 package ttps.spring.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
+import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,5 +32,24 @@ public class FoodTruckerServiceIml implements FoodTruckerService{
 	@Override
 	public List<Truck> getTrucks(Long id) {
 		return this.foodTruckerDao.findTrucksById(id);
+	}
+
+	@Override
+	public FoodTrucker updateTrucker(Long id, UsuarioDTO dto) {
+		Optional<FoodTrucker> truckerDb = Optional.ofNullable(this.foodTruckerDao.findById(id));
+		if(!truckerDb.isPresent()) {
+			throw new ServiceException("Error al actualizar trucker["+ id.toString()+"].");
+		}
+		var trucker = truckerDb.get();
+		trucker.setMail(dto.getMail());
+		trucker.setUsername(dto.getUsername());
+		trucker.setPassword(dto.getPassword());
+		
+		return this.foodTruckerDao.save(trucker);
+	}
+
+	@Override
+	public void deleteTrucker(Long id) {
+		this.foodTruckerDao.delete(id);
 	}
 }

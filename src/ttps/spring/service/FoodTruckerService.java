@@ -13,5 +13,9 @@ public interface FoodTruckerService {
 	public FoodTrucker createFoodTrucker(UsuarioDTO dto);
 	
 	public List<Truck> getTrucks(Long id);
+
+	public FoodTrucker updateTrucker(Long id, UsuarioDTO dto);
+
+	public void deleteTrucker(Long id);
 	
 }
