@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ttps.spring.dao.FoodTruckerDAO;
+import ttps.spring.dao.TruckDAO;
 import ttps.spring.dto.UsuarioDTO;
 import ttps.spring.model.FoodTrucker;
 import ttps.spring.model.Truck;
@@ -18,6 +19,9 @@ public class FoodTruckerServiceIml implements FoodTruckerService{
 	
 	@Autowired
 	private FoodTruckerDAO foodTruckerDao;
+	
+	@Autowired
+	private TruckDAO truckDao;
 	
 	@Override
 	public FoodTrucker getFoodTruckerById(Long id) {
@@ -51,5 +55,19 @@ public class FoodTruckerServiceIml implements FoodTruckerService{
 	@Override
 	public void deleteTrucker(Long id) {
 		this.foodTruckerDao.delete(id);
+	}
+
+	@Override
+	public FoodTrucker addTruck(Long idTrucker, Long idTruck) {
+		Optional<FoodTrucker> truckerDb = Optional.ofNullable(this.getFoodTruckerById(idTrucker));
+		Optional<Truck> truckDb = Optional.ofNullable(this.truckDao.findById(idTruck));
+		if(!(truckDb.isPresent() && truckerDb.isPresent())) {
+			throw new ServiceException("Error al agregar truck["+ idTruck.toString()+"] en el FoodTrucker["+ idTrucker.toString()+ "].");
+		}
+		var trucker = truckerDb.get();
+		var truck = truckDb.get();
+		
+		trucker.addTruck(truck);
+		return this.foodTruckerDao.save(trucker);
 	}
 }

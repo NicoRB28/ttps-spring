@@ -51,4 +51,8 @@ public class FoodTruckerController {
 		this.foodtruckerService.deleteTrucker(id);
 	}
 	
+	@PutMapping("/{idTrucker}/{idTruck}")
+	public FoodTrucker addTruckToTrucker(@PathVariable Long idTrucker, @PathVariable Long idTruck ) {
+		return this.foodtruckerService.addTruck(idTrucker,idTruck);
+	}
 }
