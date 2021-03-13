@@ -69,6 +69,8 @@ public class Usuario {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+	public Boolean isTrucker() {
+		return null;
+	}
 	
 }

@@ -8,16 +8,18 @@ public class UsuarioDTO {
 	private String username;
 	private String mail;
 	private String password;
+	private Boolean isTrucker;
 	
 	public UsuarioDTO() {
 		
 	}
 	
-	public UsuarioDTO(Usuario data) {
+	public <T extends Usuario> UsuarioDTO(T data) {
 		this.mail = data.getMail();
 		this.username = data.getUsername();
 		this.password = data.getPassword();
 		this.userId = data.getId();
+		this.isTrucker = data.isTrucker();
 	}
 	
 	
@@ -48,5 +50,10 @@ public class UsuarioDTO {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+	public void isTrucker(Boolean isTrucker) {
+		this.isTrucker = isTrucker;
+	}
+	public Boolean isTrucker() {
+		return this.isTrucker;
+	}
 }

@@ -42,5 +42,8 @@ public class FoodTrucker extends Usuario implements Serializable{
 	public void removeTruck(Truck truck) {
 		this.trucks.remove(truck);
 	}
-
+	
+	public Boolean isTrucker() {
+		return true;
+	}
 }
