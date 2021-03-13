@@ -40,4 +40,8 @@ public class EventPlanner extends Usuario implements Serializable {
 	public void addEvent(Event event) {
 		this.eventos.add(event);
 	}
+	
+	public Boolean isTrucker() {
+		return false;
+	}
 }

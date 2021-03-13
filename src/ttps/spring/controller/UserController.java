@@ -1,17 +1,17 @@
 package ttps.spring.controller;
 
-import java.util.HashMap;
+
 import java.util.Objects;
 import java.util.Optional;
 
-import javax.persistence.EntityNotFoundException;
 
-import org.hibernate.service.spi.ServiceException;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.lang.Nullable;
+
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -40,22 +40,6 @@ public class UserController {
 	@Autowired
 	private AuthenticationService authenticateService;
 	
-	@GetMapping("/")
-	public void llegamos() {
-		
-	}
-	
-	@PostMapping("/usuario")
-	public ResponseEntity<UsuarioDTO> createUser(@RequestBody UsuarioDTO userDTO){
-		Usuario usuario = null;
-		try {
-			 usuario = this.userService.createUser(userDTO);
-			
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-		}
-		return new ResponseEntity<>(new UsuarioDTO(usuario),HttpStatus.CREATED);
-	}
 	
 	@PostMapping("/autenticacion")
 	public ResponseEntity<UsuarioDTO> authentication(@RequestHeader("usuario")String unUser,
